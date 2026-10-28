@@ -5,7 +5,6 @@ import {
   FlatList,
   Image,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -245,11 +244,7 @@ export function FieldDetailScreen({ navigation, route }: Props) {
                     selectedDate.slice(6)}
               </Text>
             </View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.days}
-            >
+            <View style={styles.days}>
               {days.map(day => (
                 <Pressable
                   key={day.value}
@@ -302,7 +297,7 @@ export function FieldDetailScreen({ navigation, route }: Props) {
                   </Text>
                 </Pressable>
               ))}
-            </ScrollView>
+            </View>
             <View style={styles.dateSummary}>
               <Text style={styles.dateDescription}>
                 {showAll
@@ -565,14 +560,18 @@ const styles = StyleSheet.create({
   monthLabel: { ...typography.caption, fontSize: 11, color: colors.primary },
   days: {
     flexDirection: 'row',
+    alignItems: 'stretch',
+    width: '100%',
     gap: spacing.sm,
     paddingTop: spacing.md,
     paddingBottom: spacing.xs,
   },
   day: {
-    minWidth: 58,
+    flex: 1,
+    flexBasis: 0,
+    minWidth: 0,
     minHeight: 82,
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: spacing.xs,
     paddingVertical: spacing.sm,
     alignItems: 'center',
     justifyContent: 'center',
@@ -581,9 +580,26 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
   },
   daySelected: { backgroundColor: colors.primary },
-  dayLabel: { ...typography.caption, fontSize: 11, color: colors.secondary },
-  dayNumber: { ...typography.heading, color: colors.text },
-  dayCount: { ...typography.caption, fontSize: 10, color: colors.secondary },
+  dayLabel: {
+    ...typography.caption,
+    fontSize: 11,
+    color: colors.secondary,
+    textAlign: 'center',
+    width: '100%',
+  },
+  dayNumber: {
+    ...typography.heading,
+    color: colors.text,
+    textAlign: 'center',
+    width: '100%',
+  },
+  dayCount: {
+    ...typography.caption,
+    fontSize: 10,
+    color: colors.secondary,
+    textAlign: 'center',
+    width: '100%',
+  },
   selectedText: { color: colors.white },
   dateSummary: {
     flexDirection: 'row',
